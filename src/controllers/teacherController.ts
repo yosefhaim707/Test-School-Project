@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
-import { createTeacher, updateTeacher } from "../services/teacherService";
+import { createTeacher, updateTeacher, validateTeacher } from "../services/teacherService";
 import { createClassRoom } from "../services/classRoomService";
 import { registerTeacherDTO } from "../dto/registerTeacherDTO";
 import Teacher, { ITeacher } from "../models/Teacher";
 import ClassRoom, { IClassRoom } from "../models/ClassRoom";
+import { loginDTO } from "../dto/loginDTO";
+import { generateToken } from "../utils/tokenGenerator";
 
 
 export const teacherRegister = async (req: Request, res: Response): Promise<void> => {
@@ -36,4 +38,25 @@ export const teacherRegister = async (req: Request, res: Response): Promise<void
         res.status(500).json({ message: 'Some Error' + error });
     }
 
+}
+
+export const teacherLogin = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const registerBody: loginDTO = req.body;
+
+        if (!registerBody) {
+            res.status(404).json({ message: 'Incorrect body request' });
+            throw new Error('Body Does Not Match The Requirements');
+        }
+
+        const validationResponse: ITeacher = await validateTeacher(registerBody.email, registerBody.password);
+
+        if (!validationResponse) {
+            res.status(403).json({ message: 'Invalid details'})
+        }
+
+        const tokenResponse = generateToken(validationResponse._id, 'teacher')
+    } catch (error) {
+        res.status(500).json({ message: 'Some error' + error})
+    }
 }
