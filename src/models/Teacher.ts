@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Types } from 'mongoose';
+import mongoose, { Schema, Document, Types, mongo } from 'mongoose';
 
 // Interface of teacher for TypeScript
 export interface ITeacher extends Document {
@@ -6,6 +6,28 @@ export interface ITeacher extends Document {
     name: string;
     email: string;
     password: string;
-    class: Types.ObjectId;
+    classRoom: Types.ObjectId;
 };
 
+const TeacherSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    classRoom: {
+        type: Types.ObjectId,
+        required: true
+    }
+});
+
+export default mongoose.model<ITeacher>('Teacher', TeacherSchema);
