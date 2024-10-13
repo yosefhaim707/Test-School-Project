@@ -1,7 +1,6 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 
 export interface IGrade extends Document {
-    _id: Types.ObjectId;
     date: Date;
     score: number;
 };

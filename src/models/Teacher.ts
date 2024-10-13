@@ -2,11 +2,10 @@ import mongoose, { Schema, Document, Types, mongo } from 'mongoose';
 
 // Interface of teacher for TypeScript
 export interface ITeacher extends Document {
-    _id: Types.ObjectId;
     name: string;
     email: string;
     password: string;
-    classRoom: Types.ObjectId;
+    classRoom?: Types.ObjectId;
 };
 
 const TeacherSchema = new Schema({
@@ -25,8 +24,8 @@ const TeacherSchema = new Schema({
         required: true
     },
     classRoom: {
-        type: Types.ObjectId,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'ClassRoom'
     }
 });
 

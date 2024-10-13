@@ -1,10 +1,8 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 import { IClassRoom } from './ClassRoom';
 import Grade, { IGrade } from './Grade';
-import { type } from 'os';
 
 export interface IStudent extends Document {
-    _id: Types.ObjectId;
     name: string;
     email: string;
     password: string;

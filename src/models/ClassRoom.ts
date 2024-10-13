@@ -3,10 +3,9 @@ import { ITeacher } from './Teacher';
 import { IStudent } from './Student';
 
 export interface IClassRoom extends Document {
-    _id: Types.ObjectId;
     name: string;
     teacher: ITeacher['_id'];
-    students: IStudent['_id'][];
+    students?: IStudent['_id'][];
 };
 
 const ClassRoomSchema = new Schema({
@@ -23,8 +22,7 @@ const ClassRoomSchema = new Schema({
     },
     students: {
         type: [Types.ObjectId],
-        ref: 'Student',
-        required: true
+        ref: 'Student'
     }
 });
 
