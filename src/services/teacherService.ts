@@ -17,4 +17,12 @@ export const updateTeacher = async (teacher: ITeacher): Promise<ITeacher> => {
         throw new Error('Teacher not found');
     }
     return response;
-}
+};
+
+export const validateTeacher = async (email: string, password: string): Promise<ITeacher | boolean> => {
+    const response = await Teacher.findOne({email: email, password: password});
+    if (!response) {
+        return false;
+    };
+    return response;
+} 
