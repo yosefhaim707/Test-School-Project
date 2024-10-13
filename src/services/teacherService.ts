@@ -19,10 +19,10 @@ export const updateTeacher = async (teacher: ITeacher): Promise<ITeacher> => {
     return response;
 };
 
-export const validateTeacher = async (email: string, password: string): Promise<ITeacher | void> => {
+export const validateTeacher = async (email: string, password: string): Promise<ITeacher> => {
     const response = await Teacher.findOne({email: email, password: password});
     if (!response) {
-        return;
+        throw new Error('Invalid login attempt')
     };
     return response;
 } 
