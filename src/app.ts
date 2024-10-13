@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from "dotenv";
 import { connectToDatabase } from "./config/database";
 import teacherRouter from './routes/teacherRoutes';
+import studentRouter from './routes/studentRouter';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ connectToDatabase();
 
 // Routes
 app.use('/teachers', teacherRouter);
+app.use('/students', studentRouter);
 
 
 // Error handling middleware

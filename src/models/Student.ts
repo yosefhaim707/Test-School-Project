@@ -2,12 +2,13 @@ import mongoose, { Schema, Document, Types } from 'mongoose';
 import { IClassRoom } from './ClassRoom';
 import Grade, { IGrade } from './Grade';
 
+
 export interface IStudent extends Document {
     name: string;
     email: string;
     password: string;
     classRoom: IClassRoom['_id'];
-    grades: IGrade[];
+    grades?: IGrade[];
 };
 
 const StudentSchema = new Schema({
@@ -26,11 +27,11 @@ const StudentSchema = new Schema({
     },
     classRoom: {
         type: Types.ObjectId,
-        ref: 'ClassRoom',
+        ref: 'classRoom',
         required: true
     },
     grades: {
-        type: [Grade]
+        type: [Grade.schema]
     }
 });
 
