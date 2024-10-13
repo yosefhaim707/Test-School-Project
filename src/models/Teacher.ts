@@ -1,11 +1,12 @@
 import mongoose, { Schema, Document, Types, mongo } from 'mongoose';
+import { IClassRoom } from './ClassRoom';
 
 // Interface of teacher for TypeScript
 export interface ITeacher extends Document {
     name: string;
     email: string;
     password: string;
-    classRoom?: Types.ObjectId;
+    classRoom?: IClassRoom['_id'];
 };
 
 const TeacherSchema = new Schema({

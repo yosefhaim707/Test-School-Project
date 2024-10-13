@@ -1,7 +1,7 @@
 import Teacher, { ITeacher } from "../models/Teacher";
 
 // Create Teacher
-const createTeacher = async (teacher: ITeacher): Promise<ITeacher> => {
+export const createTeacher = async (teacher: ITeacher): Promise<ITeacher> => {
     const newTeacher = new Teacher({
         name: teacher.name,
         email: teacher.email,
@@ -11,3 +11,10 @@ const createTeacher = async (teacher: ITeacher): Promise<ITeacher> => {
     return response;
 };
 
+export const updateTeacher = async (teacher: ITeacher): Promise<ITeacher> => {
+    const response = await Teacher.findByIdAndUpdate(teacher._id, teacher, { new: true });
+    if (!response) {
+        throw new Error('Teacher not found');
+    }
+    return response;
+}
